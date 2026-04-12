@@ -1,0 +1,61 @@
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem !important;
+  font-weight: 500 !important;
+  padding-bottom: 4px !important;
+}
+
+.dialog-header__icon {
+  color: var(--mat-sys-primary);
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+}
+
+.dialog-body {
+  padding-top: 12px !important;
+  padding-bottom: 8px !important;
+  min-width: min(92vw, 480px);
+}
+
+.form-grid {
+  display: grid;
+  gap: 20px 20px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 520px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-field-slot--full {
+    grid-column: 1 / -1;
+  }
+}
+
+.form-field-slot {
+  width: 100%;
+}
+
+.dialog-footer {
+  padding: 16px 24px 20px !important;
+  gap: 8px;
+}
+
+.save-spinner {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  vertical-align: middle;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
