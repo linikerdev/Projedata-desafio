@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme(
+    (
+      color: mat.$azure-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+app-root {
+  display: block;
+  min-height: 100%;
+}
+
+.menu-nav-mob .mat-mdc-menu-item .mat-icon {
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
+.menu-nav-mob .app-menu-ativo.mat-mdc-menu-item:not([disabled]) {
+  background: color-mix(in srgb, var(--mat-sys-secondary-container) 55%, transparent);
+}
