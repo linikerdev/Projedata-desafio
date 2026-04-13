@@ -1,0 +1,44 @@
+<div class="todos-shell">
+  <h1 class="page-headline">
+    <mat-icon class="page-headline__icon" aria-hidden="true">checklist</mat-icon>
+    To-dos (NgRx)
+  </h1>
+  <p class="page-lede">Lista carregada via store; marque itens para alternar conclusão.</p>
+
+  @if (loading$ | async) {
+    <mat-card appearance="outlined" class="loading-card">
+      <mat-card-content class="loading-card__inner">
+        <mat-progress-spinner diameter="48" mode="indeterminate" />
+        <span>Carregando tarefas…</span>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    @if (error$ | async; as errMessage) {
+      <mat-card appearance="outlined" class="error-banner" role="alert">
+        <mat-card-content>{{ errMessage }}</mat-card-content>
+      </mat-card>
+    } @else {
+      <p class="stats-line">
+        Pendentes:
+        @if (pending$ | async; as p) {
+          <strong>{{ p.length }}</strong>
+        }
+      </p>
+
+      <div class="todo-list">
+        @for (todo of todos$ | async; track todo.id) {
+          <mat-card appearance="outlined" class="todo-row">
+            <mat-card-content class="todo-row__content">
+              <mat-checkbox
+                [checked]="todo.completed"
+                (change)="toggleTodo(todo.id)"
+              >
+                {{ todo.title }}
+              </mat-checkbox>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    }
+  }
+</div>
