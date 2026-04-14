@@ -2,6 +2,10 @@
 
 Aplicação Angular com **CRUD de usuários** (lista, busca com debounce, modal criar/editar) e rota extra de **to-dos** com NgRx.
 
+## Captura de tela
+
+![Tela principal — usuários em grade, busca e alternância cartões/lista](src/app/shared/assets/print.png)
+
 ## Stack
 
 - Angular 19 (standalone)
