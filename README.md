@@ -4,7 +4,7 @@ Aplicação Angular com **CRUD de usuários** (lista, busca com debounce, modal 
 
 ## Captura de tela
 
-![Tela principal — usuários em grade, busca e alternância cartões/lista](src/app/shared/assets/print.png)
+![Tela principal — usuários em grade, busca e alternância cartões/lista](src/app/shared/assets/print_update.png)
 
 ## Stack
 
