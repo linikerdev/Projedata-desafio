@@ -1,0 +1,40 @@
+<section class="cart-counter" aria-label="Carrinho de compras">
+  <mat-card appearance="outlined" class="cart-counter__summary">
+    <mat-card-content>
+      <p class="cart-counter__total">
+        Total: <strong>{{ total().toFixed(2) }}</strong>
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  @if (items().length === 0) {
+    <p class="cart-counter__empty">Nenhum item no carrinho.</p>
+  } @else {
+    <ul class="cart-counter__list">
+      @for (line of items(); track line.id) {
+        <li class="cart-counter__row">
+          <mat-card appearance="outlined" class="cart-counter__line-card">
+            <mat-card-content class="cart-counter__line-inner">
+              <div class="cart-counter__line-info">
+                <span class="cart-counter__name">{{ line.name }}</span>
+                <span class="cart-counter__meta">
+                  {{ line.quantity }} × {{ line.unitPrice.toFixed(2) }} =
+                  {{ (line.quantity * line.unitPrice).toFixed(2) }}
+                </span>
+              </div>
+              <button
+                type="button"
+                mat-icon-button
+                color="warn"
+                (click)="removeItem(line.id)"
+                aria-label="Remover item"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </li>
+      }
+    </ul>
+  }
+</section>

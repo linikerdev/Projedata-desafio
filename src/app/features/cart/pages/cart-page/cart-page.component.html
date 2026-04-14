@@ -1,0 +1,36 @@
+<div class="cart-shell">
+  <h1 class="page-headline">
+    <mat-icon class="page-headline__icon" aria-hidden="true">shopping_cart</mat-icon>
+    Carrinho (Signals)
+  </h1>
+  <p class="page-lede">
+    Estado local apenas com signals: lista de itens, total calculado e evento quando o total muda.
+  </p>
+
+  <app-cart-counter (totalChanged)="onTotalChanged($event)" />
+
+  @if (lastEmittedTotal() !== null) {
+    <p class="emit-line">
+      &Uacute;ltimo total emitido pelo componente:
+      <strong>{{ lastEmittedTotal()!.toFixed(2) }}</strong>
+    </p>
+  }
+
+  <div class="demo-actions">
+    <span class="demo-actions__label">Adicionar de exemplo:</span>
+    <div class="demo-actions__buttons">
+      <button type="button" mat-stroked-button (click)="cart().addItem('Caderno', 24.9)">
+        <mat-icon>add</mat-icon>
+        Caderno
+      </button>
+      <button type="button" mat-stroked-button (click)="cart().addItem('Caneta', 3.5, 2)">
+        <mat-icon>add</mat-icon>
+        Caneta (2)
+      </button>
+      <button type="button" mat-stroked-button (click)="cart().addItem('Mouse', 89.9)">
+        <mat-icon>add</mat-icon>
+        Mouse
+      </button>
+    </div>
+  </div>
+</div>

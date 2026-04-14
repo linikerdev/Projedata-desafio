@@ -32,6 +32,10 @@
         <mat-icon>checklist</mat-icon>
         To-dos
       </a>
+      <a mat-button routerLink="/cart" routerLinkActive="app-nav-ativo" class="nav-link">
+        <mat-icon>shopping_cart</mat-icon>
+        Carrinho
+      </a>
     </nav>
 
     <mat-menu #menuNav="matMenu" panelClass="menu-nav-mob">
@@ -47,6 +51,10 @@
       <a mat-menu-item routerLink="/todos" routerLinkActive="app-menu-ativo">
         <mat-icon>checklist</mat-icon>
         To-dos
+      </a>
+      <a mat-menu-item routerLink="/cart" routerLinkActive="app-menu-ativo">
+        <mat-icon>shopping_cart</mat-icon>
+        Carrinho
       </a>
     </mat-menu>
   </mat-toolbar>

@@ -20,5 +20,10 @@ export const routes: Routes = [
       ),
     providers: [provideState('todos', todosReducer), provideEffects(TodosEffects)],
   },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./features/cart/pages/cart-page/cart-page.component').then((m) => m.CartPageComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
