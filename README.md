@@ -1,14 +1,14 @@
-# Desafio Técnico - Projedata Informática
+# Desafio Técnico - Attus Procuradoria Digital
 
 ## Contexto
 
 | Campo | Detalhe |
 | --- | --- |
-| **Empresa** | Projedata Informática Ltda. |
+| **Empresa** | Attus Procuradoria Digital |
 | **Vaga** | Desenvolvedor(a) Frontend |
 | **Autor** | **Liniker Silva** · [contato@liniker.com.br](mailto:contato@liniker.com.br) · [LinkedIn](https://www.linkedin.com/in/linikerdev/) |
 
-Este repositório apresenta a solução do **desafio técnico** para a vaga de **Desenvolvedor Frontend** na **Projedata Informática Ltda.**, demonstrando organização do código, testes e uso de Angular moderno.
+Este repositório apresenta a solução do **desafio técnico** para a vaga de **Desenvolvedor Frontend** na **Attus Procuradoria Digital**, demonstrando organização do código, testes e uso de Angular moderno.
 
 ---
 
