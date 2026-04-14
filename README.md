@@ -6,13 +6,15 @@
 | --- | --- |
 | **Empresa** | Projedata Informática Ltda. |
 | **Vaga** | Desenvolvedor(a) Frontend |
-| **Autor** | **Liniker Silva** · [contato@liniker.com.br](mailto:contato@liniker.com.br) |
+| **Autor** | **Liniker Silva** · [contato@liniker.com.br](mailto:contato@liniker.com.br) · [LinkedIn](https://www.linkedin.com/in/linikerdev/) |
 
 Este repositório apresenta a solução do **desafio técnico** para a vaga de **Desenvolvedor Frontend** na **Projedata Informática Ltda.**, demonstrando organização do código, testes e uso de Angular moderno.
 
 ---
 
 Aplicação Angular com **CRUD de usuários** (lista, busca com debounce, modal criar/editar), rota de **to-dos** com NgRx e página de **carrinho** com estado em signals.
+
+**Sobre o carrinho (`/cart`):** foi **incluído de propósito** como complemento à solução — exemplo de carrinho com **`signal`**, **`computed`**, **`effect`** e **`output`**, sem NgRx, para mostrar o modelo reativo nativo do Angular.
 
 ## Captura de tela
 
@@ -29,6 +31,8 @@ Aplicação Angular com **CRUD de usuários** (lista, busca com debounce, modal 
 - Vitest + `@analogjs/vitest-angular` + `@vitest/coverage-v8`
 
 ## Como rodar
+
+**Ambiente:** desenvolvido e testado com **Node.js v24.14.1** e **npm 11.11.0**. Outras versões recentes compatíveis com Angular 19 costumam funcionar; se algo falhar, alinhe a versão do Node.
 
 ```bash
 npm install
