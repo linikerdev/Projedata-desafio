@@ -26,6 +26,30 @@
       </mat-form-field>
     </mat-card-content>
   </mat-card>
+  <div class="view-toggle-row" role="toolbar" aria-label="Forma de exibir usuários">
+    <button
+      mat-icon-button
+      type="button"
+      class="view-toggle-btn"
+      [class.view-toggle-btn--active]="viewMode() === 'cards'"
+      matTooltip="Cartões"
+      [attr.aria-pressed]="viewMode() === 'cards' ? 'true' : 'false'"
+      (click)="setViewMode('cards')"
+    >
+      <mat-icon fontSet="material-icons-outlined">view_module</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      type="button"
+      class="view-toggle-btn"
+      [class.view-toggle-btn--active]="viewMode() === 'list'"
+      matTooltip="Lista"
+      [attr.aria-pressed]="viewMode() === 'list' ? 'true' : 'false'"
+      (click)="setViewMode('list')"
+    >
+      <mat-icon fontSet="material-icons-outlined">view_list</mat-icon>
+    </button>
+  </div>
 </section>
 
 @if (store.error()) {
@@ -56,43 +80,81 @@
     </mat-card-content>
   </mat-card>
 } @else if (!store.loading() && store.users().length > 0) {
-  <div class="user-grid">
-    @for (u of store.users(); track u.id) {
-      <mat-card appearance="outlined" class="user-card">
-        <mat-card-header>
-          <div mat-card-avatar class="avatar">{{ initialsFromName(u.nome) }}</div>
-          <mat-card-title class="user-card__heading">{{ u.nome }}</mat-card-title>
-          <mat-card-subtitle>{{ u.email }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content class="user-card__body">
-          <div class="user-card__contact">
-            <div class="contact-row">
-              <mat-icon class="contact-row__icon" aria-hidden="true">badge</mat-icon>
-              <span class="contact-row__value">{{ formatCpfDisplay(u.cpf) }}</span>
+  @if (viewMode() === 'cards') {
+    <div class="user-grid">
+      @for (u of store.users(); track u.id) {
+        <mat-card appearance="outlined" class="user-card">
+          <mat-card-header>
+            <div mat-card-avatar class="avatar">{{ initialsFromName(u.nome) }}</div>
+            <mat-card-title class="user-card__heading">{{ u.nome }}</mat-card-title>
+            <mat-card-subtitle>{{ u.email }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="user-card__body">
+            <div class="user-card__contact">
+              <div class="contact-row">
+                <mat-icon class="contact-row__icon" aria-hidden="true">badge</mat-icon>
+                <span class="contact-row__value">{{ formatCpfDisplay(u.cpf) }}</span>
+              </div>
+              <div class="contact-row">
+                <mat-icon class="contact-row__icon" aria-hidden="true">call</mat-icon>
+                <span class="contact-row__value">{{ formatPhoneDisplay(u.telefone) }}</span>
+                <mat-chip-set class="phone-kind-chip" aria-label="Tipo de telefone">
+                  <mat-chip disabled>{{ phoneKindLabel(u.tipoTelefone) }}</mat-chip>
+                </mat-chip-set>
+              </div>
             </div>
-            <div class="contact-row">
-              <mat-icon class="contact-row__icon" aria-hidden="true">call</mat-icon>
-              <span class="contact-row__value">{{ formatPhoneDisplay(u.telefone) }}</span>
-              <mat-chip-set class="phone-kind-chip" aria-label="Tipo de telefone">
-                <mat-chip disabled>{{ phoneKindLabel(u.tipoTelefone) }}</mat-chip>
-              </mat-chip-set>
-            </div>
+          </mat-card-content>
+          <mat-card-actions align="end" class="user-card__actions">
+            <button
+              mat-stroked-button
+              color="primary"
+              type="button"
+              (click)="openEditDialog(u)"
+            >
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <div class="user-list-view" role="list">
+      @for (u of store.users(); track u.id) {
+        <div class="user-list-row" role="listitem">
+          <div class="user-list-row__avatar avatar avatar--list">{{ initialsFromName(u.nome) }}</div>
+          <div class="user-list-row__main">
+            <div class="user-list-row__title">{{ u.nome }}</div>
+            <div class="user-list-row__email">{{ u.email }}</div>
           </div>
-        </mat-card-content>
-        <mat-card-actions align="end" class="user-card__actions">
+          <div class="user-list-row__contact">
+            <span class="user-list-row__meta">
+              <mat-icon class="user-list-row__meta-icon" aria-hidden="true">badge</mat-icon>
+              {{ formatCpfDisplay(u.cpf) }}
+            </span>
+            <span class="user-list-row__meta">
+              <mat-icon class="user-list-row__meta-icon" aria-hidden="true">call</mat-icon>
+              {{ formatPhoneDisplay(u.telefone) }}
+            </span>
+            <mat-chip-set class="user-list-row__chip" aria-label="Tipo de telefone">
+              <mat-chip disabled>{{ phoneKindLabel(u.tipoTelefone) }}</mat-chip>
+            </mat-chip-set>
+          </div>
           <button
-            mat-stroked-button
-            color="primary"
+            mat-icon-button
             type="button"
+            color="primary"
+            class="user-list-row__edit"
+            [attr.aria-label]="'Editar ' + u.nome"
+            matTooltip="Editar"
             (click)="openEditDialog(u)"
           >
             <mat-icon>edit</mat-icon>
-            Editar
           </button>
-        </mat-card-actions>
-      </mat-card>
-    }
-  </div>
+        </div>
+      }
+    </div>
+  }
   @if (store.totalCount() > 0) {
     <mat-paginator
       class="user-grid__pager"

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,6 +31,8 @@ import { UsersService } from '../../services/users.service';
 import { UsersStore } from '../../store/users.store';
 import { UserFormDialogComponent } from '../user-form-dialog/user-form-dialog.component';
 
+export type UserListViewMode = 'cards' | 'list';
+
 @Component({
   selector: 'app-user-list',
   standalone: true,
@@ -51,9 +53,13 @@ import { UserFormDialogComponent } from '../user-form-dialog/user-form-dialog.co
   styleUrl: './user-list.component.scss',
 })
 export class UserListComponent {
+  private static readonly VIEW_STORAGE_KEY = 'desafio.userList.viewMode';
+
   private readonly dialog = inject(MatDialog);
   private readonly usersApi = inject(UsersService);
   readonly store = inject(UsersStore);
+
+  readonly viewMode = signal<UserListViewMode>(UserListComponent.readStoredViewMode());
 
   constructor() {
     const store = this.store;
@@ -107,6 +113,18 @@ export class UserListComponent {
   onPageChange(e: PageEvent): void {
     this.store.setPageSize(e.pageSize);
     this.store.setPageIndex(e.pageIndex);
+  }
+
+  setViewMode(mode: UserListViewMode): void {
+    if (this.viewMode() === mode) {
+      return;
+    }
+    this.viewMode.set(mode);
+    try {
+      localStorage.setItem(UserListComponent.VIEW_STORAGE_KEY, mode);
+    } catch {
+      /* ignore quota / private mode */
+    }
   }
 
   openCreateDialog(): void {
@@ -178,6 +196,14 @@ export class UserListComponent {
       return n.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
     }
     return phone;
+  }
+
+  private static readStoredViewMode(): UserListViewMode {
+    try {
+      return localStorage.getItem(UserListComponent.VIEW_STORAGE_KEY) === 'list' ? 'list' : 'cards';
+    } catch {
+      return 'cards';
+    }
   }
 }
 
